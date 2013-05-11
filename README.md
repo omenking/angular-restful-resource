@@ -86,7 +86,7 @@ eg.
 
 `````coffeescript
 class Klass
-  constructor:(@$scope,@Parent)->
+  constructor:(@$scope,@Task)->
     @$scope.$on 'index_tasks'      , @index_success
     @$scope.$on 'show_tasks'       , @show_success
     @$scope.$on 'new_tasks'        , @new_success
@@ -104,5 +104,5 @@ class Klass
   update_success  : (e,data)=> console.log 'update_success'
   destroy_success : (e,data)=> console.log 'destroy_success'
   destroy_err     : (e,data)=> console.log 'destroy_err'
-app.controller 'index_tasks', ['$scope','Parent',Klass]
+app.controller 'index_tasks', ['$scope','Task',Klass]
 `````
