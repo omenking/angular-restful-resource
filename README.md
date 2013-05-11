@@ -1,6 +1,6 @@
 angular-restful-resource
 ========================
-
+ 
 Rails like routes in your angular services hooray!
 
 1. Extend your service with Restful.
