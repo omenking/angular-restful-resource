@@ -1,3 +1,9 @@
+#
+# @license Andrew Brown v1.0.0
+# (c) 2013 http://monsterboxpro.com
+# License: MIT
+#
+
 class window.Restful
   _get:(action,name,params={})=>
     msg  = "#{action}_#{@table_name}"
