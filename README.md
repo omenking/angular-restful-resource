@@ -83,6 +83,7 @@ Task.mamn(model)     # mamn_tasks(_err)
 
 So in your controller all you have to do is listen.
 
+`````coffeescript
 eg.
 class Klass
   constructor:(@$scope,@Parent)->
