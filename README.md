@@ -23,7 +23,7 @@ class Task extends Restful
     wham     : 'post'
     thankyou : 'put'
     mamn     : 'destroy'
-app.service 'Playlist', ['$rootScope','$http',Task]
+app.service 'Task', ['$rootScope','$http',Task]
 `````
 
 ### What the requests look like:
