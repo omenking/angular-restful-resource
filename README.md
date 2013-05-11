@@ -104,5 +104,5 @@ class Klass
   update_success  : (e,data)=> console.log 'update_success'
   destroy_success : (e,data)=> console.log 'destroy_success'
   destroy_err     : (e,data)=> console.log 'destroy_err'
-tutor_city.controller 'index_tasks', ['$scope','Parent',Klass]
+app.controller 'index_tasks', ['$scope','Parent',Klass]
 `````
