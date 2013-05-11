@@ -37,46 +37,71 @@ model  = { id: 1 }
 params = { name: "Get'er done" }
 
 
-Material.index()              # GET    /admin/api/tasks     
-Material.show(model)          # GET    /admin/api/tasks/1
-Material.new()                # GET    /admin/api/tasks/new
-Material.create(model,params) # POST   /admin/api/tasks
-Material.edit(model)          # GET    /admin/api/tasks/1/edit
-Material.update(model,params) # PUT    /admin/api/tasks/1
-Material.destroy(model)       # DELETE /admin/api/tasks/1
+Task.index()              # GET    /admin/api/tasks     
+Task.show(model)          # GET    /admin/api/tasks/1
+Task.new()                # GET    /admin/api/tasks/new
+Task.create(model,params) # POST   /admin/api/tasks
+Task.edit(model)          # GET    /admin/api/tasks/1/edit
+Task.update(model,params) # PUT    /admin/api/tasks/1
+Task.destroy(model)       # DELETE /admin/api/tasks/1
 
-Material.rock()  # GET     /admin/api/tasks/rock
-Material.soup()  # POST    /admin/api/tasks/soup
-Material.boat()  # PUT     /admin/api/tasks/boat
-Material.float() # DELETE  /admin/api/tasks/float
+Task.rock()  # GET     /admin/api/tasks/rock
+Task.soup()  # POST    /admin/api/tasks/soup
+Task.boat()  # PUT     /admin/api/tasks/boat
+Task.float() # DELETE  /admin/api/tasks/float
 
-Material.blam(model)     # GET    /admin/api/tasks/1/blam
-Material.wham(model)     # POST   /admin/api/tasks/1/wham
-Material.thankyou(model) # PUT    /admin/api/tasks/1/thankyou
-Material.mamn(model)     # DELETE /admin/api/tasks/1/mamn
+Task.blam(model)     # GET    /admin/api/tasks/1/blam
+Task.wham(model)     # POST   /admin/api/tasks/1/wham
+Task.thankyou(model) # PUT    /admin/api/tasks/1/thankyou
+Task.mamn(model)     # DELETE /admin/api/tasks/1/mamn
 `````
 
 ### What will get broadcasted back
 
 In the case of an error _err is appended to the event name.
 
+
 `````coffeescript
-Material.index()              # index_materials(_err)
-Material.show(model)          # show_materials(_err)
-Material.new()                # new_materials(_err)
-Material.create(model,params) # create_materials(_err)
-Material.edit(model)          # edit_materials(_err)
-Material.update(model,params) # update_materials(_err)
-Material.destroy(model)       # destroy_materials(_err)
+Task.index()              # index_tasks(_err)
+Task.show(model)          # show_tasks(_err)
+Task.new()                # new_tasks(_err)
+Task.create(model,params) # create_tasks(_err)
+Task.edit(model)          # edit_tasks(_err)
+Task.update(model,params) # update_tasks(_err)
+Task.destroy(model)       # destroy_tasks(_err)
 
-Material.rock()  # GET     # rock_materials(_err)
-Material.soup()  # POST    # soup_materials(_err)
-Material.boat()  # PUT     # boat_materials(_err)
-Material.float() # DELETE  # delete_materials(_err)
+Task.rock()  # rock_tasks(_err)
+Task.soup()  # soup_tasks(_err)
+Task.boat()  # boat_tasks(_err)
+Task.float() # delete_tasks(_err)
 
-Material.blam(model)     # blam_materials(_err)
-Material.wham(model)     # wham_materials(_err)
-Material.thankyou(model) # thankout_materials(_err)
-Material.mamn(model)     # mamn_materials(_err)
+Task.blam(model)     # blam_tasks(_err)
+Task.wham(model)     # wham_tasks(_err)
+Task.thankyou(model) # thankout_tasks(_err)
+Task.mamn(model)     # mamn_tasks(_err)
 `````
 
+So in your controller all you have to do is listen.
+
+eg.
+class Klass
+  constructor:(@$scope,@Parent)->
+    @$scope.$on 'index_tasks'      , @index_success
+    @$scope.$on 'show_tasks'       , @show_success
+    @$scope.$on 'new_tasks'        , @new_success
+    @$scope.$on 'create_tasks'     , @create_success
+    @$scope.$on 'edit_tasks'       , @edit_success
+    @$scope.$on 'update_tasks'     , @update_success
+    @$scope.$on 'destroy_tasks'    , @destroy_success
+    @$scope.$on 'destroy_tasks_err', @destroy_err
+    # etc.. you get the idea
+  index_success   : (e,data)=> console.log 'index_success'
+  show_success    : (e,data)=> console.log 'show_success'
+  new_success     : (e,data)=> console.log 'new_success'
+  create_success  : (e,data)=> console.log 'create_success'
+  edit_success    : (e,data)=> console.log 'edit_success'
+  update_success  : (e,data)=> console.log 'update_success'
+  destroy_success : (e,data)=> console.log 'destroy_success'
+  destroy_err     : (e,data)=> console.log 'destroy_err'
+tutor_city.controller 'index_tasks', ['$scope','Parent',Klass]
+`````
