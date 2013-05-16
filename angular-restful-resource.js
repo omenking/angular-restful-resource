@@ -17,7 +17,7 @@
         url: name,
         params: params
       });
-      return this._callback(req, msg, opts);
+      return this._callback(req, action, opts);
     };
 
     Restful.prototype._post = function(action, name, params, opts) {

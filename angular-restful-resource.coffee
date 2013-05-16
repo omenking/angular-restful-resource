@@ -10,7 +10,7 @@ class window.Restful
       method : 'GET'
       url    : name
       params : params
-    @_callback req, msg, opts
+    @_callback req, action, opts
   _post:(action,name,params={},opts={})=>
     req  = @$http.post name, params
     @_callback req, action, opts
