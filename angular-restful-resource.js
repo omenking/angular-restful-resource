@@ -4,7 +4,7 @@
 
   window.Restful = (function() {
     Restful.prototype._get = function(action, name, params, opts) {
-      var msg, req;
+      var req;
 
       if (params == null) {
         params = {};
@@ -12,7 +12,6 @@
       if (opts == null) {
         opts = {};
       }
-      msg = "" + action + "_" + this.table_name;
       req = this.$http({
         method: 'GET',
         url: name,
@@ -22,7 +21,7 @@
     };
 
     Restful.prototype._post = function(action, name, params, opts) {
-      var msg, req;
+      var req;
 
       if (params == null) {
         params = {};
@@ -30,24 +29,22 @@
       if (opts == null) {
         opts = {};
       }
-      msg = "" + action + "_" + this.table_name;
       req = this.$http.post(name, params);
-      return this._callback(req, msg, opts);
+      return this._callback(req, action, opts);
     };
 
     Restful.prototype._put = function(action, name, params, opts) {
-      var msg, req;
+      var req;
 
       if (opts == null) {
         opts = {};
       }
-      msg = "" + action + "_" + this.table_name;
       req = this.$http.put(name, params);
-      return this._callback(req, msg, opts);
+      return this._callback(req, action, opts);
     };
 
     Restful.prototype._delete = function(action, name, params, opts) {
-      var msg, req;
+      var req;
 
       if (params == null) {
         params = {};
@@ -55,23 +52,24 @@
       if (opts == null) {
         opts = {};
       }
-      msg = "" + action + "_" + this.table_name;
       req = this.$http({
         method: 'DELETE',
         url: name,
         params: params
       });
-      return this._callback(req, msg, opts);
+      return this._callback(req, action, opts);
     };
 
-    Restful.prototype._callback = function(req, msg, opts) {
-      var _this = this;
+    Restful.prototype._callback = function(req, action, opts) {
+      var msg,
+        _this = this;
 
+      msg = "" + this.table_name + "/" + action;
       req.success(function(data) {
         return _this.$rootScope.$broadcast(msg, data, opts);
       });
       return req.error(function(data) {
-        return _this.$rootScope.$broadcast("" + msg + "_err", data, opts);
+        return _this.$rootScope.$broadcast("" + msg + "#err", data, opts);
       });
     };
 

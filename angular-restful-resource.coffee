@@ -6,30 +6,27 @@
 
 class window.Restful
   _get:(action,name,params={},opts={})=>
-    msg  = "#{action}_#{@table_name}"
     req = @$http
       method : 'GET'
       url    : name
       params : params
     @_callback req, msg, opts
   _post:(action,name,params={},opts={})=>
-    msg  = "#{action}_#{@table_name}"
     req  = @$http.post name, params
-    @_callback req, msg, opts
+    @_callback req, action, opts
   _put:(action,name,params,opts={})=>
-    msg  = "#{action}_#{@table_name}"
     req  = @$http.put name, params
-    @_callback req, msg, opts
+    @_callback req, action, opts
   _delete:(action,name,params={},opts={})=>
-    msg  = "#{action}_#{@table_name}"
     req = @$http
       method : 'DELETE'
       url    : name
       params : params
-    @_callback req, msg, opts
-  _callback:(req,msg, opts)=>
+    @_callback req, action, opts
+  _callback:(req,action,opts)=>
+    msg  = "#{@table_name}/#{action}"
     req.success (data)=> @$rootScope.$broadcast msg         , data, opts
-    req.error (data)=>   @$rootScope.$broadcast "#{msg}_err", data, opts
+    req.error (data)=>   @$rootScope.$broadcast "#{msg}#err", data, opts
   index:(params,opts={})=>
     action = 'index'
     name = @path()

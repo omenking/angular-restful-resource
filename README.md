@@ -58,7 +58,7 @@ Task.mamn(model)     # DELETE /admin/api/tasks/1/mamn
 
 ### What will get broadcasted back
 
-In the case of an error _err is appended to the event name.
+In the case of an error #err is appended to the event name.
 
 
 `````coffeescript
@@ -87,14 +87,14 @@ eg.
 `````coffeescript
 class Klass
   constructor:(@$scope,@Task)->
-    @$scope.$on 'index_tasks'      , @index_success
-    @$scope.$on 'show_tasks'       , @show_success
-    @$scope.$on 'new_tasks'        , @new_success
-    @$scope.$on 'create_tasks'     , @create_success
-    @$scope.$on 'edit_tasks'       , @edit_success
-    @$scope.$on 'update_tasks'     , @update_success
-    @$scope.$on 'destroy_tasks'    , @destroy_success
-    @$scope.$on 'destroy_tasks_err', @destroy_err
+    @$scope.$on 'tasks/index'      , @index_success
+    @$scope.$on 'tasks/show'       , @show_success
+    @$scope.$on 'tasks/new'        , @new_success
+    @$scope.$on 'tasks/create'     , @create_success
+    @$scope.$on 'tasks/edit'       , @edit_success
+    @$scope.$on 'tasks/update'     , @update_success
+    @$scope.$on 'tasks/destroy'    , @destroy_success
+    @$scope.$on 'tasks/destroy#err', @destroy_err
     # etc.. you get the idea
   index_success   : (e,data)=> console.log 'index_success'
   show_success    : (e,data)=> console.log 'show_success'
