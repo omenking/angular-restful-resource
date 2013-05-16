@@ -27,13 +27,19 @@ class window.Restful
     msg  = "#{@table_name}/#{action}"
     req.success (data)=> @$rootScope.$broadcast msg         , data, opts
     req.error (data)=>   @$rootScope.$broadcast "#{msg}#err", data, opts
+  _extract_id:(model)=>
+    if typeof String || typeof Number
+      model
+    else
+      model.id
   index:(params,opts={})=>
     action = 'index'
     name = @path()
     @_get action, name, params, opts
   show:(model,params,opts={})=>
     action = 'show'
-    name   = @path model.id
+    id     = @_extract_id model
+    name   = @path id
     @_get action, name, params, opts
   new:(params,opts={})=>
     action = 'new'
@@ -45,15 +51,18 @@ class window.Restful
     @_post action, name, params, opts
   edit:(model,params,opts={})=>
     action = 'edit'
-    name   = @path model.id, action
+    id     = @_extract_id model
+    name   = @path id, action
     @_get action, name, params, opts
   update:(model,params,opts={})=>
     action = 'update'
-    name   = @path model.id
+    id     = @_extract_id model
+    name   = @path id
     @_put action, name, params, opts
   destroy:(model,params,opts={})=>
     action = 'destroy'
-    name   = @path model.id
+    id     = @_extract_id model
+    name   = @path id
     @_delete action, name, params, opts
   path:(args...)=>
     path = []

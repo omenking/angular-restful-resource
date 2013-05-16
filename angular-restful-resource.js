@@ -73,6 +73,14 @@
       });
     };
 
+    Restful.prototype._extract_id = function(model) {
+      if (typeof String || typeof Number) {
+        return model;
+      } else {
+        return model.id;
+      }
+    };
+
     Restful.prototype.index = function(params, opts) {
       var action, name;
 
@@ -85,13 +93,14 @@
     };
 
     Restful.prototype.show = function(model, params, opts) {
-      var action, name;
+      var action, id, name;
 
       if (opts == null) {
         opts = {};
       }
       action = 'show';
-      name = this.path(model.id);
+      id = this._extract_id(model);
+      name = this.path(id);
       return this._get(action, name, params, opts);
     };
 
@@ -118,35 +127,38 @@
     };
 
     Restful.prototype.edit = function(model, params, opts) {
-      var action, name;
+      var action, id, name;
 
       if (opts == null) {
         opts = {};
       }
       action = 'edit';
-      name = this.path(model.id, action);
+      id = this._extract_id(model);
+      name = this.path(id, action);
       return this._get(action, name, params, opts);
     };
 
     Restful.prototype.update = function(model, params, opts) {
-      var action, name;
+      var action, id, name;
 
       if (opts == null) {
         opts = {};
       }
       action = 'update';
-      name = this.path(model.id);
+      id = this._extract_id(model);
+      name = this.path(id);
       return this._put(action, name, params, opts);
     };
 
     Restful.prototype.destroy = function(model, params, opts) {
-      var action, name;
+      var action, id, name;
 
       if (opts == null) {
         opts = {};
       }
       action = 'destroy';
-      name = this.path(model.id);
+      id = this._extract_id(model);
+      name = this.path(id);
       return this._delete(action, name, params, opts);
     };
 
@@ -176,6 +188,7 @@
       this["new"] = __bind(this["new"], this);
       this.show = __bind(this.show, this);
       this.index = __bind(this.index, this);
+      this._extract_id = __bind(this._extract_id, this);
       this._callback = __bind(this._callback, this);
       this._delete = __bind(this._delete, this);
       this._put = __bind(this._put, this);
