@@ -74,7 +74,7 @@
     };
 
     Restful.prototype._extract_id = function(model) {
-      if (typeof model === String || typeof model === Number) {
+      if (typeof model === 'string' || typeof model === 'number') {
         return model;
       } else {
         return model.id;
