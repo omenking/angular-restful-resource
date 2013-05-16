@@ -28,7 +28,7 @@ class window.Restful
     req.success (data)=> @$rootScope.$broadcast msg         , data, opts
     req.error (data)=>   @$rootScope.$broadcast "#{msg}#err", data, opts
   _extract_id:(model)=>
-    if typeof String || typeof Number
+    if typeof model is String || typeof model is Number
       model
     else
       model.id
