@@ -183,16 +183,16 @@
       this._put = __bind(this._put, this);
       this._post = __bind(this._post, this);
       this._get = __bind(this._get, this);
-      var _this = this;
+      var action, fun, method, name, _ref, _ref1;
 
-      _.each(this.collection, function(kind, action) {
-        var fun, name;
-
-        name = _this.path(action);
+      _ref = this.collection;
+      for (action in _ref) {
+        method = _ref[action];
+        name = this.path(action);
         fun = (function() {
           var _this = this;
 
-          switch (kind) {
+          switch (method) {
             case 'get':
               return function(params, opts) {
                 return _this._get(action, name, params, opts);
@@ -210,16 +210,16 @@
                 return _this._delete(action, name, params, opts);
               };
           }
-        }).call(_this);
-        return _this[action] = fun;
-      });
-      _.each(this.member, function(kind, action) {
-        var fun;
-
+        }).call(this);
+        this[action] = fun;
+      }
+      _ref1 = this.member;
+      for (action in _ref1) {
+        method = _ref1[action];
         fun = (function() {
           var _this = this;
 
-          switch (kind) {
+          switch (method) {
             case 'get':
               return function(model, params, opts) {
                 return _this._get(action, _this.path(model.id, action), params, opts);
@@ -237,9 +237,9 @@
                 return _this._delete(action, _this.path(model.id, action), params, opts);
               };
           }
-        }).call(_this);
-        return _this[action] = fun;
-      });
+        }).call(this);
+        this[action] = fun;
+      }
     }
 
     return Restful;

@@ -66,16 +66,16 @@ class window.Restful
     path = path.join '/'
     "/#{path}"
   constructor:->
-    _.each @collection, (kind,action)=>
+    for action, method of @collection
       name = @path action
-      fun = switch kind
+      fun = switch method
         when 'get'     then (params,opts)=> @_get    action, name, params, opts
         when 'post'    then (params,opts)=> @_post   action, name, params, opts
         when 'put'     then (params,opts)=> @_put    action, name, params, opts
         when 'destroy' then (params,opts)=> @_delete action, name, params, opts
       @[action] = fun
-    _.each @member, (kind,action)=>
-      fun = switch kind
+    for action, method of @member
+      fun = switch method
         when 'get'     then (model,params,opts)=> @_get    action, @path(model.id,action), params, opts
         when 'post'    then (model,params,opts)=> @_post   action, @path(model.id,action), params, opts
         when 'put'     then (model,params,opts)=> @_put    action, @path(model.id,action), params, opts
